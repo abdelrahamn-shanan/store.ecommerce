@@ -26,7 +26,7 @@ class SettingDatabaseSeeder extends Seeder
             'outer_shipping_cost' => 0,
             'free_shipping_cost' => 0,
             'translatable' => [
-                'store_name' => 'متجر ',
+                'store_name' => ' متجر شنان ',
                 'free_shipping_label' => 'توصيل مجاني',
                 'local_label' => 'توصيل داخلي',
                 'outer_label' => 'توصيل خارجي',
