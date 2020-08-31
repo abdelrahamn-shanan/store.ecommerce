@@ -12,12 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "admin" middleware group. Now create something great!
 |
 */
-Route::group(['namespace'=>'Dashboard' , 'middleware' => 'guest:admin'] , function(){
+// prefix admin
+
+
+Route::group(
+[
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+
+Route::group(['namespace'=>'Dashboard' , 'middleware' => 'guest:admin' ,  'prefix' => 'admin'] , function(){
     Route::get('login', 'LoginController@login')->name('admin.login');
     Route::post('login', 'LoginController@postlogin')->name('admin.post.login');  
 });
 
-Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin'] , function(){
+Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'prefix' => 'admin'] , function(){
     Route::get('/', 'DashboardController@index')->name('admin.dashboard');
+
+    Route::group(['prefix'=>"settings"] , function(){
+        Route::get('shipping-methods/{type}' ,'SettingController@editShippingMethods')
+                ->name('edit.shippings.methods');
+        Route::put('shipping-methods/{id}' ,'SettingController@updateShippingMethods')
+                ->name('update.shippings.methods');
+    });
+});
 });
 
