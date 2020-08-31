@@ -24,8 +24,9 @@ class shippingsRequest extends FormRequest
     public function rules()
     {
         return [
+            'id'=> 'required|exists:settings',
             'value'=> 'required',
-            'plain_value'=>'required',
+            'plain_value'=>'nullable|numeric',
         ];
     }
 
@@ -33,6 +34,7 @@ class shippingsRequest extends FormRequest
     {
         return [
            'required'=>'هذا الحقل مطلوب ',
+           'numeric'=> 'لابد من ادخال ارقام '
         ];
     }
 }

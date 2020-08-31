@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Http\Requests\shippingsRequest;
+use DB;
 
 class SettingController extends Controller
 {
@@ -27,6 +28,21 @@ class SettingController extends Controller
     }
 
     public function updateShippingMethods(shippingsRequest $request , $id){
-              return $request;
-    }
+         
+            try{
+
+                $shippingMethod = Setting::findorfail($id);
+                DB::beginTransaction();
+                $shippingMethod->update(['plain_value' => $request->plain_value,]);
+                $shippingMethod->value = $request->value;
+                $shippingMethod->save();
+                DB::commit();
+                return redirect()->back()->with(['success' => ' تم التحديث بنجاح']);
+
+            }catch(Exception $ex)
+            {
+            return redirect()->back()->with(['error' => 'هناك خطا ما يرجي المحاولة فيما بعد']);
+            DB::rollback();
+            }
+  }
 }
