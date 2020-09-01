@@ -56,7 +56,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الاسم </label>
-                                                            <input type="text" value="{{__('admin/sidebar.توصيل مجاني')}}" id="name"
+                                                            <input type="text" value="{{$shippingMethod ->value}}}" id="name"
                                                                    class="form-control"
                                                                    placeholder="  "
                                                                    name="value">
