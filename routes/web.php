@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('test' , function (){
-    return LaravelLocalization::getSupportedLocales();
+    $category = App\Models\Category::find(3);
+    $category ->makevisible(['translations']);
+    return $category;
 });

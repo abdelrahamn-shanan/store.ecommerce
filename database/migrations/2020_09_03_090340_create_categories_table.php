@@ -13,10 +13,11 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::update('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('slug')->unique();
+            $table->varchar('photo')->nullable();
             $table->boolean('is_active');
             $table->timestamps();
 

@@ -20,13 +20,15 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
-
+//group 1
 Route::group(['namespace'=>'Dashboard' , 'middleware' => 'guest:admin' ,  'prefix' => 'admin'] , function(){
     Route::get('login', 'LoginController@login')->name('admin.login');
     Route::post('login', 'LoginController@postlogin')->name('admin.post.login');  
 
 });
+//end group 1
 
+///group 2
 Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'prefix' => 'admin'] , function(){
     Route::get('/', 'DashboardController@index')->name('admin.dashboard');
     Route::get('logout', 'LogoutController@logout')->name('admin.logout');  
@@ -40,6 +42,29 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
         Route::get('edit' ,'ProfileController@edit') ->name('edit.profile');
         Route::put('update' ,'ProfileController@update') ->name('update.profile');
     });
+ ///////////// categories routes///////
+    Route::group(['prefix'=>"MainCategories"] , function(){
+        Route::get('index' ,'CategoryController@index') ->name('index.category');
+        Route::get('create' ,'CategoryController@create') ->name('create.category');
+        Route::post('store' ,'CategoryController@store') ->name('store.category');
+        Route::get('edit/{id}' ,'CategoryController@edit') ->name('edit.category');
+        Route::post('update/{id}' ,'CategoryController@update') ->name('update.category');
+        Route::get('delete/{id}' ,'CategoryController@delete') ->name('delete.category');
+    });
+ /////////// end categories routes///////
+
+  ///////////// sub-categories routes///////
+  Route::group(['prefix'=>"SubCategories"] , function(){
+    Route::get('index' ,'SubCategoryController@index') ->name('index.subcategory');
+    Route::get('create' ,'SubCategoryController@create') ->name('create.subcategory');
+    Route::post('store' ,'SubCategoryController@store') ->name('store.subcategory');
+    Route::get('edit/{id}' ,'SubCategoryController@edit') ->name('edit.subcategory');
+    Route::post('update/{id}' ,'SubCategoryController@update') ->name('update.subcategory');
+    Route::get('delete/{id}' ,'SubCategoryController@delete') ->name('delete.subcategory');
 });
+/////////// end sub-categories routes///////
+});
+//end group2
+
 });
 

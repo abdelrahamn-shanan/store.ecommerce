@@ -8,4 +8,10 @@ class CategoryTranslation extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
+
+    public function scopeSelection($query)
+    {
+
+        return $query->select('name');
+    }
 }
