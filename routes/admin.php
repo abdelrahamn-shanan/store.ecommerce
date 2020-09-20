@@ -63,6 +63,18 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
     Route::get('delete/{id}' ,'SubCategoryController@delete') ->name('delete.subcategory');
 });
 /////////// end sub-categories routes///////
+
+  ///////////// Brands routes///////
+  Route::group(['prefix'=>"Brands"] , function(){
+    Route::get('index' ,'BrandController@index') ->name('index.brand');
+    Route::get('create' ,'BrandController@create') ->name('create.brand');
+    Route::post('store' ,'BrandController@store') ->name('store.brand');
+    Route::get('edit/{id}' ,'BrandController@edit') ->name('edit.brand');
+    Route::post('update/{id}' ,'BrandController@update') ->name('update.brand');
+    Route::get('delete/{id}' ,'BrandController@delete') ->name('delete.brand');
+});
+/////////// end Brands routes///////
+
 });
 //end group2
 

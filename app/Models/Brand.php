@@ -5,7 +5,7 @@ use Astrotomic\Translatable\Translatable;
 use App\Http\Requests\MainCategoryRequest;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Brand extends Model
 {
     use Translatable;
 
@@ -24,7 +24,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['parent_id', 'slug', 'is_active' , 'photo'];
+    protected $fillable = ['is_active' ,'photo'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,14 +41,7 @@ class Category extends Model
     protected $casts = [
          'is_active' => 'boolean',
     ];
-    
-    public function scopeParent($query){
-       return $query->whereNull('parent_id');
-    }
 
-    public function scopeChild($query){
-        return $query->whereNOTNull('parent_id');
-        }
 
      public function scopeActive($query){
         return $query->where('is_active' , 1);
@@ -61,12 +54,8 @@ class Category extends Model
 
     public function getPhotoAttribute($val) // accessors
     {
-        return ($val !== null) ? asset('assets/' . $val) : "";
+        return ($val !== null) ? asset('assets/images/brands/' . $val) : "";
 
-    }
-
-    public function MainParent(){
-        return $this->belongsTo(self::class , 'parent_id');
     }
 
 }

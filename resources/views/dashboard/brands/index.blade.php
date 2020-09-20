@@ -11,7 +11,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> الاقسام الرئيسية
+                                <li class="breadcrumb-item active"> الماركات التجارية
                                 </li>
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الاقسام الرئيسية </h4>
+                                    <h4 class="card-title">جميع الماركات التجارية  </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -48,29 +48,27 @@
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
-                                                <th> الاسم بالرابط </th>
-                                                <th>الحالة</th>
-                                                <th>صوره القسم</th>
+                                                <th>  الحالة </th>
+                                                <th>صورة الماركة </th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($categories)
-                                                @foreach($categories as $category)
+                                            @isset($brands)
+                                                @foreach($brands as $brand)
                                                     <tr>
-                                                        <td>{{$category -> name}}</td>
-                                                        <td>{{$category -> slug}}</td>
-                                                        <td>{{$category -> getActive()}}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src="{{$category->photo}}"></td>
+                                                        <td>{{$brand -> name}}</td>
+                                                        <td>{{$brand -> getActive()}}</td>
+                                                        <td> <img style="width: 150px; height: 100px;" src="{{$brand->photo}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('edit.category',$category -> id)}}"
+                                                                <a href="{{route('edit.brand',$brand -> id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
-                                                                <a href="{{route('delete.category',$category -> id)}}"
+                                                                <a href="{{route('delete.brand',$brand -> id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
                                                             </div>
                                                         </td>
@@ -78,7 +76,6 @@
                                                 @endforeach
                                             @endisset
                                             </tbody>
-                                            {{$category->links}}
                                         </table>
                                         <div class="justify-content-center d-flex">
 

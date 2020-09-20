@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class SubCategoryController extends Controller
 {
     public function index(){
-          $subcategories= Category::Child()->orderBy('id' ,'DESC')->PAGINATE(PAGINATION_COUNT);
+          $subcategories= Category::Child()->orderBy('id' ,'DESC')->paginate(PAGINATION_COUNT);
          return view('dashboard.subcategories.index', compact('subcategories'));
     }
 

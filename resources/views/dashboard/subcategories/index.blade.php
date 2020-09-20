@@ -43,7 +43,7 @@
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table
+                                        <table 
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead class="">
                                             <tr>
@@ -62,20 +62,18 @@
                                                     <tr>
                                                         <td>{{$subcategory -> name}}</td>
                                                         <td>{{$subcategory -> slug}}</td>
-                                                        <td> {{App\Models\CategoryTranslation::where('category_id', $subcategory->parent_id)->Selection()->get()}}</td>
+                                                        <td>{{$subcategory ->MainParent->name}}</td>
                                                         <td>{{$subcategory -> getActive()}}</td>
                                                         <td> <img style="width: 150px; height: 100px;" src="{{$subcategory->photo}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('edit.subcategory',$subcategory -> id)}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-2 mr-2 mb-2">تعديل</a>
 
 
                                                                 <a href="{{route('delete.subcategory',$subcategory -> id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
-
-
+                                                                   class="btn btn-outline-danger btn-min-width  box-shadow-2 mr-2 mb-2">حذف</a>
 
                                                             </div>
                                                         </td>

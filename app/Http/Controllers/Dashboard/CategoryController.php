@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     public function index(){
-        $categories= Category::Parent()->orderBy('id' ,'DESC')->paginate(PAGINATION_COUNT);
+        $categories= Category::Parent()->orderBy('id' ,'DESC')->get();
          return view('dashboard.categories.index', compact('categories'));
     }
 
