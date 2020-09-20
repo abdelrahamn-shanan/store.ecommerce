@@ -75,6 +75,17 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
 });
 /////////// end Brands routes///////
 
+  ///////////// tags routes///////
+  Route::group(['prefix'=>"Tags"] , function(){
+    Route::get('index' ,'TagsController@index') ->name('index.tag');
+    Route::get('create' ,'TagsController@create') ->name('create.tag');
+    Route::post('store' ,'TagsController@store') ->name('store.tag');
+    Route::get('edit/{id}' ,'TagsController@edit') ->name('edit.tag');
+    Route::post('update/{id}' ,'TagsController@update') ->name('update.tag');
+    Route::get('delete/{id}' ,'TagsController@delete') ->name('delete.tag');
+});
+/////////// end tags routes///////
+
 });
 //end group2
 

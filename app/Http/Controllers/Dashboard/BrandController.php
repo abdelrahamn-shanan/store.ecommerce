@@ -30,16 +30,16 @@ class BrandController extends Controller
             $request->request->add(['is_active' => 0]);
            else
             $request->request->add(['is_active' => 1]);
-            $filePath = "";
+            $fileName = "";
             if ($request->has('photo')) {
 
-                $filePath = uploadImage('brands', $request->photo);
+              $fileName = uploadImage('brands', $request->photo);
             }
             DB::beginTransaction();
 
             $brand = Brand::create([
             'is_active' => $request->is_active,
-            'photo' => $filePath
+            'photo' => $fileName
             ]);
             $brand->name = $request->name;
             $brand->save();
@@ -53,9 +53,9 @@ class BrandController extends Controller
 
     }
     public function edit($id){
-        $brand=Brand::orderBy('id' ,'DESC')->find($id);
+        $brand=Brand::find($id);
       if(!$brand)
-          return redirect()->route('index.brand')->with(['error'=> 'هذا القسم غير موجود']);
+          return redirect()->route('index.brand')->with(['error'=> 'هذا العنصر غير موجود']);
 
        return view ('dashboard.brands.edit' ,compact('brand'));   
       
@@ -65,33 +65,35 @@ class BrandController extends Controller
      try{
        $brand = Brand::find($id);
        if (!$brand)
-         return redirect()->route('index.brand')->with(['error' => 'هذا القسم غير موجود']);
+         return redirect()->route('index.brand')->with(['error' => 'هذا العنصر غير موجود']);
 
-       if (!$request->has('is_active'))
+      if (!$request->has('is_active'))
        $request->request->add(['is_active' => 0]);
       else
      $request->request->add(['is_active' => 1]);
 
-     $filePath = "";
+     DB::beginTransaction();
+     $fileName = "";
      if ($request->has('photo')) {
 
-         $filePath = uploadImage('brands', $request->photo);
-     }
-
-      $brand -> update([
+         $fileName = uploadImage('brands', $request->photo);
+         $brand -> update([
           'is_active' => $request->is_active,
-          'photo' => $filePath
+          'photo' => $fileName
 
       ]);
+     }
+
       // save translation
       $brand->name = $request->name;
       $brand->save();
+      DB::commit();
        return redirect()->route('index.brand')->with(['success'=>'تم التحديث بنجاح']);
 
      }catch(\Exception $ex)
      {
-         return $ex;
-       return redirect()->route('index.brand')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
+      DB::rollback();
+      return redirect()->route('index.brand')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
      }
    }
 
@@ -108,6 +110,7 @@ class BrandController extends Controller
 
        }catch(\Exception $ex)
        {
+        return $ex;
          return redirect()->route('index.brand')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
 
        }
