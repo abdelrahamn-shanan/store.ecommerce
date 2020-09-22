@@ -107,15 +107,14 @@ class SubCategoryController extends Controller
           $subcategory = Category::find($id);
           if (!$subcategory)
           return redirect()->route('index.subcategory')->with(['error' => 'هذا القسم غير موجود']);
-         /* $img = Str::after($subcategory->photo, 'assets/');
+          $img = Str::after($subcategory->photo, 'assets/');
           $image = base_path('public\assets/' . $img);
-          unlink($image);*/
+          unlink($image);
           $subcategory->delete();
           return redirect()->route('index.subcategory')->with(['success'=>'تم الحذف بنجاح']);
 
         }catch(\Exception $ex)
         {
-            return $ex;
          return redirect()->route('index.subcategory')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
 
         }

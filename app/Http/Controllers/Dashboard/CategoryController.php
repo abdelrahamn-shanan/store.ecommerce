@@ -11,12 +11,13 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     public function index(){
-        $categories= Category::Parent()->orderBy('id' ,'DESC')->get();
+        $categories= Category::orderBy('id' ,'DESC')->get();
          return view('dashboard.categories.index', compact('categories'));
     }
 
     public function create(){
-        return view('dashboard.categories.create');
+        $categories= Category::select('id' , 'parent_id')->orderBy('id' ,'DESC')->get();
+        return view('dashboard.categories.create' , compact('categories'));
 
     }
     public function store(MainCategoryRequest $request)
@@ -29,18 +30,22 @@ class CategoryController extends Controller
             $request->request->add(['is_active' => 0]);
            else
             $request->request->add(['is_active' => 1]);
+            // upload image
             $filePath = "";
             if ($request->has('photo')) {
 
                 $filePath = uploadImage('maincategories', $request->photo);
             }
+            // if user choose maincategory remove parent_id
+            if( $request->type == 1 )
+            {
+              $request->request->add(['parent_id' => null]);
+            }
+            //if user choose sub category we must add parent-id
             DB::beginTransaction();
-
-            $category = Category::create([
-            'slug' =>  $request->slug,
-            'is_active' => $request->is_active,
-            'photo' => $filePath
-            ]);
+            $category = Category::create($request->except('_token'));
+            $category->photo = $filePath ;
+            // save translations
             $category->name = $request->name;
             $category->save();
             DB::commit();
@@ -63,6 +68,8 @@ class CategoryController extends Controller
     }
 
     public function update($id , MainCategoryRequest $request){
+      
+       //return $request;
       try{
         $category = Category::find($id);
         if (!$category)
@@ -71,7 +78,7 @@ class CategoryController extends Controller
         if (!$request->has('is_active'))
         $request->request->add(['is_active' => 0]);
        else
-      $request->request->add(['is_active' => 1]);
+        $request->request->add(['is_active' => 1]);
 
       $filePath = "";
       if ($request->has('photo')) {
@@ -108,7 +115,8 @@ class CategoryController extends Controller
           return redirect()->route('index.category')->with(['success'=>'تم الحذف بنجاح']);
 
         }catch(\Exception $ex)
-        {
+        { 
+          return $ex;
           return redirect()->route('index.category')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
 
         }

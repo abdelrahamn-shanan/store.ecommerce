@@ -8,5 +8,7 @@ function uploadImage($folder, $image)
 {
     $image->store('/', $folder);
     $filename = $image->hashName();
-    return $filename;
-}
+    $path = 'images/' . $folder . '/' . $filename;
+    return $path;
+ }
+

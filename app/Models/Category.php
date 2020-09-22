@@ -66,7 +66,7 @@ class Category extends Model
     }
 
     public function MainParent(){
-        return $this->belongsTo(self::class , 'parent_id');
+        return $this->belongsTo(self::class , 'parent_id')->withDefault(" ");
     }
 
 }

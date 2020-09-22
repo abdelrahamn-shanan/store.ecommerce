@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BrandRequest;
 use DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class BrandController extends Controller
@@ -77,13 +78,12 @@ class BrandController extends Controller
      if ($request->has('photo')) {
 
          $fileName = uploadImage('brands', $request->photo);
-         $brand -> update([
-          'is_active' => $request->is_active,
-          'photo' => $fileName
-
-      ]);
      }
+     $brand -> update([
+      'is_active' => $request->is_active,
+      'photo' => $fileName
 
+  ]);
       // save translation
       $brand->name = $request->name;
       $brand->save();
@@ -102,15 +102,17 @@ class BrandController extends Controller
          $brand = Brand::find($id);
          if (!$brand)
          return redirect()->route('index.brand')->with(['error' => 'هذا القسم غير موجود']);
+         
+         if ($brand->photo) {
          $img = Str::after($brand->photo, 'assets/');
          $image = base_path('public\assets/' . $img);
          unlink($image);
+         }
          $brand->delete();
          return redirect()->route('index.brand')->with(['success'=>'تم الحذف بنجاح']);
 
        }catch(\Exception $ex)
        {
-        return $ex;
          return redirect()->route('index.brand')->with(['error'=>' حدث خطأ ما يرجي المحاولة فيما بعد']);
 
        }

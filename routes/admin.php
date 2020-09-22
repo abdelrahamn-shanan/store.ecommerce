@@ -53,7 +53,7 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
     });
  /////////// end categories routes///////
 
-  ///////////// sub-categories routes///////
+ /* ///////////// sub-categories routes///////
   Route::group(['prefix'=>"SubCategories"] , function(){
     Route::get('index' ,'SubCategoryController@index') ->name('index.subcategory');
     Route::get('create' ,'SubCategoryController@create') ->name('create.subcategory');
@@ -61,7 +61,7 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
     Route::get('edit/{id}' ,'SubCategoryController@edit') ->name('edit.subcategory');
     Route::post('update/{id}' ,'SubCategoryController@update') ->name('update.subcategory');
     Route::get('delete/{id}' ,'SubCategoryController@delete') ->name('delete.subcategory');
-});
+});*/
 /////////// end sub-categories routes///////
 
   ///////////// Brands routes///////
