@@ -44,10 +44,10 @@
                         class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\Category::Child()->count()}}</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="active"><a class="menu-item" href="{{route('index.subcategory')}}"
+                    <li class="active"><a class="menu-item" href=""
                                           data-i18n="nav.dash.ecommerce"> عرض الكل </a>
                     </li>
-                    <li><a class="menu-item" href="{{route('create.subcategory')}}" data-i18n="nav.dash.crypto">أضافة
+                    <li><a class="menu-item" href="" data-i18n="nav.dash.crypto">أضافة
                             قسم فرعي جديد </a>
                     </li>
                 </ul>
@@ -81,6 +81,21 @@
                     </li>
                     <li><a class="menu-item" href="{{route('create.tag')}}" data-i18n="nav.dash.crypto">اضافة
                             وسم جديد </a>
+                    </li>
+                </ul>
+            </li>
+
+               <li class="nav-item"><a href=""><i class="la la-group"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> المنتجات   </span>
+                    <span
+                        class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\Product::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{route('index.product')}}"
+                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{route('create.product')}}" data-i18n="nav.dash.crypto">اضافة
+                              منتج جديد </a>
                     </li>
                 </ul>
             </li>

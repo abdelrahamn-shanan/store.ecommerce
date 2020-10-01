@@ -1,31 +1,36 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-use App\Models\Category;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\MainCategoryRequest;
-use DB;
-use Illuminate\Support\Str;
-use  App\Http\Enumerations\CategoryType;
+use App\Models\Product;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Http\Requests\ProductRequest;
 
-class CategoryController extends Controller
+
+class ProductController extends Controller
 {
     public function index(){
-        $categories= Category::orderBy('id' ,'DESC')->get();
-         return view('dashboard.categories.index', compact('categories'));
+      
     }
 
     public function create(){
-        $categories= Category::select('id' , 'parent_id')->orderBy('id' ,'DESC')->get();
-        return view('dashboard.categories.create' , compact('categories'));
+        $data = [];
+        $data['brands'] = Brand::active()->select('id')->get();
+        $data['tags'] = Tag::select('id')->get();
+        $data['categories'] = Category::active()->select('id')->get();
+        return view('dashboard.products.general.create', $data);
 
     }
-    public function store(MainCategoryRequest $request)
+    public function store(ProductRequest $request)
     {
 
         try {
 
+            return $request;
             //validation
             if (!$request->has('is_active'))
             $request->request->add(['is_active' => 0]);

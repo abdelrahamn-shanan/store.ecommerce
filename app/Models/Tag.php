@@ -32,4 +32,6 @@ class Tag extends Model
      * @var array
      */
     protected $hidden = ['translations'];
+
+    
 }

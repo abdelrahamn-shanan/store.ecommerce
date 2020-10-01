@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Http\Enumerations\CategoryType;
+use Illuminate\Validation\Rule;
 class MainCategoryRequest extends FormRequest
 {
     /**
@@ -27,7 +28,7 @@ class MainCategoryRequest extends FormRequest
             'photo' => 'required_without:id|mimes:jpg,jpeg,png',
             'name'=> 'required',
             'slug' => 'required|unique:categories,slug,'.$this->id,
-            'type'=>'required|in:1,2',
+            'type' => 'required|'.Rule::in([CategoryType::MainCategory, CategoryType::SubCategory])
         ];
     }
 
@@ -35,7 +36,7 @@ class MainCategoryRequest extends FormRequest
     {
         return [
             'required_without:id'=>'هذا الحقل مطلوب',
-            'photo.required' => 'هذا الحقل مطلوب',
+            'photo.required' => 'هذا الحقل مطلوب', 
             'name.required'=> 'هذا الحقل مطلوب',
             'slug.required' => 'هذا الحقل مطلوب',
             'slug.unique' => 'هذا الحقل مستخدم من قبل ',

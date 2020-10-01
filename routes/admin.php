@@ -86,6 +86,17 @@ Route::group(['namespace'=>'Dashboard'  , 'middleware' => 'auth:admin' ,   'pref
 });
 /////////// end tags routes///////
 
+  ///////////// product routes///////
+  Route::group(['prefix'=>"Product"] , function(){
+    Route::get('index' ,'ProductController@index') ->name('index.product');
+    Route::get('create' ,'ProductController@create') ->name('create.product');
+    Route::post('store' ,'ProductController@store') ->name('store.product');
+    Route::get('edit/{id}' ,'ProductController@edit') ->name('edit.product');
+    Route::post('update/{id}' ,'ProductController@update') ->name('update.product');
+    Route::get('delete/{id}' ,'ProductController@delete') ->name('delete.product');
+});
+/////////// end tags routes///////
+
 });
 //end group2
 
